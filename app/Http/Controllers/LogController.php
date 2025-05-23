@@ -98,9 +98,7 @@ class LogController extends Controller
             if (!isset($validated['timestamp'])) {
                 $now = Carbon::now('Europe/London');
                 $validated['timestamp'] = $now->timestamp;
-                Log::info('Generated timestamp: ' . $now->timestamp . ', Human-readable: ' . $now->toDateTimeString());
             } else {
-                Log::info('Provided timestamp: ' . $validated['timestamp']);
             }
 
             $log = Log::create($validated);
