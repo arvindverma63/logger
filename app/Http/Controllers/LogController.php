@@ -83,37 +83,24 @@ class LogController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $validated = $request->validate([
-                'type' => 'required|in:info,error,warn',
-                'message' => 'required|string',
-                'source' => 'nullable|string|max:255',
-                'timestamp' => 'nullable|integer',
-            ]);
+        $validated = $request->validate([
+            'type' => 'required|in:info,error,warn',
+            'message' => 'required|string',
+            'source' => 'nullable|string|max:255',
+            'timestamp' => 'nullable|integer',
+        ]);
 
-            // Log request time for debugging
-            Log::info('Request received at: ' . Carbon::now()->toDateTimeString());
-
-            // If timestamp is not provided, set it to the current timestamp
-            if (!isset($validated['timestamp'])) {
-                $now = Carbon::now('Europe/London');
-                $validated['timestamp'] = $now->timestamp;
-            } else {
-            }
-
-            $log = Log::create($validated);
-
-            return Response::json([
-                'message' => 'Log created successfully',
-                'data' => $log,
-                'generated_timestamp' => $validated['timestamp'],
-                'human_readable_time' => Carbon::createFromTimestamp($validated['timestamp'], 'Europe/London')->toDateTimeString(),
-            ], 201);
-        } catch (\Exception $e) {
-            return Response::json([
-                'message' => 'Error creating log',
-                'error' => $e->getMessage(),
-            ], 500);
+        // If timestamp is not provided, set it to the current timestamp
+        if (!isset($validated['timestamp'])) {
+            $now = Carbon::now('Europe/London');
+            $validated['timestamp'] = $now->timestamp;
         }
+
+        $log = Log::create($validated);
+
+        return Response::json([
+            'message' => 'Log created successfully',
+            'data' => $log,
+        ], 200);
     }
 }
