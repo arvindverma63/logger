@@ -87,14 +87,19 @@ class LogController extends Controller
             'type' => 'required|in:info,error,warn',
             'message' => 'required|string',
             'source' => 'nullable|string|max:255',
-            'timestamp' => $current_timestamp = Carbon::now()->timestamp
+            'timestamp' => 'nullable|integer',
         ]);
+
+        // If timestamp is not provided, set it to the current timestamp
+        if (!isset($validated['timestamp'])) {
+            $validated['timestamp'] = Carbon::now()->timestamp;
+        }
 
         $log = Log::create($validated);
 
         return Response::json([
             'message' => 'Log created successfully',
             'data' => $log,
-        ], 201);
+        ], 200);
     }
 }
