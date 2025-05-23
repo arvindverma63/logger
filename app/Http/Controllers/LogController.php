@@ -92,7 +92,7 @@ class LogController extends Controller
 
         // If timestamp is not provided, set it to the current timestamp
         if (!isset($validated['timestamp'])) {
-            $validated['timestamp'] = Carbon::now()->timestamp;
+            $validated['timestamp'] = Carbon::now('Europe/London')->timestamp;
         }
 
         $log = Log::create($validated);
