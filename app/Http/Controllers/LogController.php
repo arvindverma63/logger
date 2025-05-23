@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Log;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use OpenApi\Annotations as OA;
@@ -86,6 +87,7 @@ class LogController extends Controller
             'type' => 'required|in:info,error,warn',
             'message' => 'required|string',
             'source' => 'nullable|string|max:255',
+            'timestamp' => $current_timestamp = Carbon::now()->timestamp
         ]);
 
         $log = Log::create($validated);
