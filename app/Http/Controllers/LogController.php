@@ -83,23 +83,40 @@ class LogController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'type' => 'required|in:info,error,warn',
-            'message' => 'required|string',
-            'source' => 'nullable|string|max:255',
-            'timestamp' => 'nullable|integer',
-        ]);
+        try {
+            $validated = $request->validate([
+                'type' => 'required|in:info,error,warn',
+                'message' => 'required|string',
+                'source' => 'nullable|string|max:255',
+                'timestamp' => 'nullable|integer',
+            ]);
 
-        // If timestamp is not provided, set it to the current timestamp
-        if (!isset($validated['timestamp'])) {
-            $validated['timestamp'] = Carbon::now('Europe/London')->timestamp;
+            // Log request time for debugging
+            Log::info('Request received at: ' . Carbon::now()->toDateTimeString());
+
+            // If timestamp is not provided, set it to the current timestamp
+            if (!isset($validated['timestamp'])) {
+                $now = Carbon::now('Europe/London');
+                $validated['timestamp'] = $now->timestamp;
+                Log::info('Generated timestamp: ' . $now->timestamp . ', Human-readable: ' . $now->toDateTimeString());
+            } else {
+                Log::info('Provided timestamp: ' . $validated['timestamp']);
+            }
+
+            $log = Log::create($validated);
+
+            return Response::json([
+                'message' => 'Log created successfully',
+                'data' => $log,
+                'generated_timestamp' => $validated['timestamp'],
+                'human_readable_time' => Carbon::createFromTimestamp($validated['timestamp'], 'Europe/London')->toDateTimeString(),
+            ], 201);
+        } catch (\Exception $e) {
+            Log::error('Error creating log: ' . $e->getMessage());
+            return Response::json([
+                'message' => 'Error creating log',
+                'error' => $e->getMessage(),
+            ], 500);
         }
-
-        $log = Log::create($validated);
-
-        return Response::json([
-            'message' => 'Log created successfully',
-            'data' => $log,
-        ], 200);
     }
 }
