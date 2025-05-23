@@ -112,7 +112,6 @@ class LogController extends Controller
                 'human_readable_time' => Carbon::createFromTimestamp($validated['timestamp'], 'Europe/London')->toDateTimeString(),
             ], 201);
         } catch (\Exception $e) {
-            Log::error('Error creating log: ' . $e->getMessage());
             return Response::json([
                 'message' => 'Error creating log',
                 'error' => $e->getMessage(),
