@@ -9,9 +9,9 @@
 </head>
 
 <body class="bg-gray-100 min-h-screen flex flex-col">
-    <header class="bg-indigo-600 text-white py-4 shadow-lg">
+    <header class="bg-[#d70007] text-white py-4 shadow-lg">
         <div class="container mx-auto px-4">
-            <h1 class="text-2xl font-bold">Android Application Logs (Arvind)</h1>
+            <h1 class="text-2xl font-bold">ACE TAXIS Logs (Arvind)</h1>
         </div>
     </header>
 
