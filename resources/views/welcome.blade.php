@@ -42,7 +42,7 @@
                     </div>
                     <div class="flex items-end">
                         <button type="submit"
-                            class="w-full sm:w-auto bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200">Apply
+                            class="w-full sm:w-auto bg-[#d70007] text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200">Apply
                             Filter</button>
                     </div>
                 </div>
