@@ -22,6 +22,20 @@
         <!-- Filter Section -->
         <section class="bg-white p-6 rounded-lg shadow-md mb-8">
             <h2 class="text-xl font-semibold mb-4">Filter Logs</h2>
+            <!-- Quick Search Bar -->
+            <form action="{{ route('logs.index') }}" method="GET" class="mb-4">
+                <div class="flex items-center gap-2">
+                    <input type="text" name="search" value="{{ request('search') }}"
+                        class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                        placeholder="Quick search log message...">
+                    <button type="submit"
+                        class="bg-[#d70007] text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200">
+                        Search
+                    </button>
+                </div>
+            </form>
+
+            <!-- Filter Form -->
             <form action="{{ route('logs.index') }}" method="GET">
                 <div class="flex flex-col sm:flex-row gap-4">
                     <div class="flex-1">
@@ -42,11 +56,13 @@
                     </div>
                     <div class="flex items-end">
                         <button type="submit"
-                            class="w-full sm:w-auto bg-[#d70007] text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200">Apply
-                            Filter</button>
+                            class="w-full sm:w-auto bg-[#d70007] text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200">
+                            Apply Filter
+                        </button>
                     </div>
                 </div>
             </form>
+
         </section>
 
         <!-- Logs DataTable -->
