@@ -10,9 +10,11 @@
 
 <body class="bg-gray-100 min-h-screen flex flex-col">
     <header class="bg-[#d70007] text-white py-4 shadow-lg">
+        <a href="/">
         <div class="container mx-auto px-4">
             <h1 class="text-2xl font-bold">ACE TAXIS Logs (Arvind)</h1>
         </div>
+        </a>
     </header>
 
     <main class="container mx-auto px-4 py-8 flex-grow">
